@@ -15,15 +15,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+Route::post('/login', [MyAuthController::class, 'login']);
 
 Route::controller(MyAuthController::class)->group(function () {
-    Route::post('register', 'register');
-    Route::post('login', 'login');
+    Route::post('/register', 'register');
+    Route::post('/logout', 'logout')->middleware('auth:sanctum');
 });
 
 Route::get('/smile', function() {
     return 'catch you smiling huh';
+})->middleware('auth:sanctum');
+
+Route::fallback(function () {
+    return redirect()->route('/login');
 });
+

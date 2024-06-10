@@ -17,6 +17,13 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('login', function() {
+    return 'please login first';
+});
+
 Route::get('smile', function() {
     return 'catch you smiling huh';
 });
+
+
+
