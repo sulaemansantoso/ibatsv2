@@ -17,9 +17,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('login', function() {
-    return 'please login first';
-});
+Route::get('/login', function() {
+    return response('please login to access API',403);
+})->name('login');
 
 Route::get('smile', function() {
     return 'catch you smiling huh';
