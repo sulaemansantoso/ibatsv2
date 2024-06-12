@@ -1,4 +1,3 @@
-
  php_flag opcache.enable Off
 
 <IfModule mod_rewrite.c>
@@ -14,9 +13,7 @@ RewriteRule ^ ^$1 [N]
 
 RewriteCond %{REQUEST_URI} (\.\w+$) [NC]
 RewriteRule ^(.*)$ public/$1
-
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteRule ^ index.php
+RewriteRule ^ server.php
+</IfModule
 
 </IfModule>

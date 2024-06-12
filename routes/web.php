@@ -17,6 +17,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('smile', function() {
+Route::get('/smile', function() {
     return 'catch you smiling huh';
 });
