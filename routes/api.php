@@ -23,7 +23,7 @@ Route::controller(MyAuthController::class)->group(function () {
 });
 
 Route::get('smile', function() {
-    return 'catch you smiling huh';
+    return 'test API with authentication';
 })->middleware('auth:sanctum');
 
 
