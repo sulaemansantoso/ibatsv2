@@ -12,11 +12,12 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/smile', function() {
-    return 'catch you smiling huh';
-});
+Route::get('/login', function() {
+    return response('please login to access API',403);
+})->name('login');
+
+Route::get('smile', function() { return 'catch you smiling huh';});
