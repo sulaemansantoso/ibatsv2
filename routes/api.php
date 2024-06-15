@@ -29,5 +29,8 @@ Route::get('smile', function() {
     return 'test API with authentication  ';
 })->middleware('auth:sanctum');
 
-
+Route::fallback(function(){
+    return response()->json([
+        'message' => 'API Route Not Found. Please contact your administrator.'], 404);
+});
 
