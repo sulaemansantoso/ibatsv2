@@ -11,6 +11,11 @@ use Illuminate\Http\JsonResponse;
 
 class MyAuthController extends BaseController
 {
+
+    public function getjson() {
+        return $this->sendResponse('TestAPI succesfull', 'Test API returns Succesfully');
+    }
+
     public function ClearAllToken() {
         //delete all active token on laravel
 

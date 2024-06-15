@@ -22,6 +22,7 @@ Route::controller(MyAuthController::class)->group(function () {
     Route::post('register-2', 'register2');
     Route::post('login-2', 'login2');
     Route::post('logout', 'logout')->middleware('auth:sanctum');
+    Route::get('getjson', 'getjson');
 });
 
 Route::get('smile', function() {
