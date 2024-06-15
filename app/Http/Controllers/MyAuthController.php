@@ -11,6 +11,44 @@ use Illuminate\Http\JsonResponse;
 
 class MyAuthController extends BaseController
 {
+    public function ClearAllToken() {
+        //delete all active token on laravel
+
+    }
+
+
+    public function login2(Request $request) {
+        $data = $request->json()->all();
+        if (Auth::attempt(['kode_user' => $data['kode_user'], 'password' => $data['password']])) {
+            $user = Auth::user();
+            $success['token'] =  $user->createToken('MyApp')->plainTextToken;
+            $success['name'] =  $user->name;
+            return $this->sendResponse($success, 'User Login Succesfully');
+        } else {
+            return $this->sendError('Unauthorised', ['error'=>'Unauthorised']);
+        }
+    }
+
+
+    public function register2(Request $request) {
+     $data = $request->json()->all();
+     $validator = Validator::make($data, [
+         'name' => 'required',
+         'email' => 'required|email',
+         'password' => 'required',
+         'kode_user' => 'required',
+     ]);
+     if($validator->fails()){
+         return $this->sendError('validation error', $validator->errors());
+     }
+     $input = $request->all();
+     $input['password'] = bcrypt($input['password']);
+     $user = User::create($input);
+     $success['token'] =  $user->createToken('MyApp')->plainTextToken;
+     $success['name'] =  $user->name;
+     return $this->sendResponse($success, 'User Register Succesfully');
+    }
+
    public function register(Request $request) {
     $validator = Validator::make($request->all(), [
         'name' => 'required',
@@ -44,7 +82,7 @@ class MyAuthController extends BaseController
    }
 
    public function logout (Request $request) : JsonResponse {
-    
+
      $token = $request->user()->currentAccessToken()->delete();
      return $this->sendResponse($token, 'User Logout Succesfully');
    }
