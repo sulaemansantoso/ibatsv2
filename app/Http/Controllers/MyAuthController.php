@@ -27,6 +27,7 @@ class MyAuthController extends BaseController
         if (Auth::attempt(['kode_user' => $data['kode_user'], 'password' => $data['password']])) {
             $user = Auth::user();
             $success['token'] =  $user->createToken('MyApp')->plainTextToken;
+            $success['token'] = explode('|', $success['token'])[1];
             $success['name'] =  $user->name;
             return $this->sendResponse($success, 'User Login Succesfully');
         } else {
@@ -50,6 +51,7 @@ class MyAuthController extends BaseController
      $input['password'] = bcrypt($input['password']);
      $user = User::create($input);
      $success['token'] =  $user->createToken('MyApp')->plainTextToken;
+     $success['token'] = explode('|', $success['token'])[1];
      $success['name'] =  $user->name;
      return $this->sendResponse($success, 'User Register Succesfully');
     }
@@ -69,6 +71,7 @@ class MyAuthController extends BaseController
     $input['password'] = bcrypt($input['password']);
     $user = User::create($input);
     $success['token'] =  $user->createToken('MyApp')->plainTextToken;
+    $success['token'] = explode('|', $success['token'])[1];
     $success['name'] =  $user->name;
     return $this->sendResponse($success, 'User Register Succesfully');
 
@@ -78,6 +81,7 @@ class MyAuthController extends BaseController
     if (Auth::attempt(['kode_user' => $request->kode_user, 'password' => $request->password])){
         $user = Auth::user();
         $success['token'] =  $user->createToken('MyApp')->plainTextToken;
+        $success['token'] = explode('|', $success['token'])[1];
         $success['name'] =  $user->name;
         return $this->sendResponse($success, 'User Login Succesfully');
     }
