@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('mk', function (Blueprint $table) {
             $table->id("id_mk");
             $table->string("nama_mk", 200);
-            $table->int("sks_mk");
+            $table->integer("sks_mk");
             $table->timestamps();
         });
     }

@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('kelas', function (Blueprint $table) {
             $table->id();
-            $table->int('id_mk')->references('id_mk')->on('mk');
-            $table->int('id_periode')->references('id_periode')->on('periode');
+            $table->integer('id_mk')->references('id_mk')->on('mk');
+            $table->integer('id_periode')->references('id_periode')->on('periode');
             $table->string('nama_kelas');
             $table->string("jam_mulai");
             $table->string("jam_selesai");

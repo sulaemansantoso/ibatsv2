@@ -13,9 +13,10 @@ return new class extends Migration
     {
         Schema::create('pertemuan', function (Blueprint $table) {
             $table->id("id_pertemuan");
-            $table->int('id_kelas')->references('id_kelas')->on('kelas');
-            $table->int("no_pertemuan");
+            $table->integer('id_kelas')->references('id_kelas')->on('kelas');
+            $table->integer("no_pertemuan");
             $table->date("tgl_pertemuan");
+
             $table->timestamps();
         });
     }
