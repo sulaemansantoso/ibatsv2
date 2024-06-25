@@ -29,6 +29,8 @@ class MyAuthController extends BaseController
             $success['token'] =  $user->createToken('MyApp')->plainTextToken;
             $success['token'] = explode('|', $success['token'])[1];
             $success['name'] =  $user->name;
+            $success['id_user'] = $user->kode_user;
+            $success['email'] = $user->email;
             return $this->sendResponse($success, 'User Login Succesfully');
         } else {
             return $this->sendError('Unauthorised', ['error'=>'Unauthorised']);
@@ -73,6 +75,8 @@ class MyAuthController extends BaseController
     $success['token'] =  $user->createToken('MyApp')->plainTextToken;
     $success['token'] = explode('|', $success['token'])[1];
     $success['name'] =  $user->name;
+    $success['id_user'] = $user->kode_user;
+    $success['email'] = $user->email;
     return $this->sendResponse($success, 'User Register Succesfully');
 
    }
