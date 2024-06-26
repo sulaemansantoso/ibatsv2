@@ -8,4 +8,15 @@ use Illuminate\Database\Eloquent\Model;
 class Kelas extends Model
 {
     use HasFactory;
+
+    protected $table = 'kelas';
+
+    protected $fillable = [
+        'id_kelas',
+        'id_mk',
+        'id_periode',
+        'nama_kelas',
+        'jam_mulai',
+        'jam_selesai'
+        ];
 }
