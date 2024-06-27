@@ -10,6 +10,7 @@ class PertemuanPhoto extends Model
     use HasFactory;
 
     protected $table = 'pertemuan_photo';
+    protected $primaryKey = 'id_pertemuan_photo';
 
     protected $fillable = [
         'id_pertemuan_photo',

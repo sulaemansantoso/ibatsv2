@@ -17,11 +17,16 @@ class MKController extends Controller
 
     public function insert(Request $request)
     {
-        $mk = new MK();
-        $mk->kode_mk = $request->kode_mk;
-        $mk->nama_mk = $request->nama_mk;
-        $mk->sks_mk = $request->sks_mk;
-        $mk->save();
+        try {
+            $mk = new MK();
+            $mk->kode_mk = $request->kode_mk;
+            $mk->nama_mk = $request->nama_mk;
+            $mk->sks_mk = $request->sks_mk;
+            $mk->save();
+        }
+        catch (\Exception $e) {
+            return response()->json($e->getMessage());
+        }
         return response()->json($mk);
 
     }
