@@ -10,6 +10,7 @@ class MK extends Model
     use HasFactory;
 
     protected $table = 'mk';
+    protected $primaryKey = 'id_mk';
 
     protected $fillable = [
         'id_mk',

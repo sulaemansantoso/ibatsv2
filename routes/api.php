@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\MKController;
 use App\Http\Controllers\MyAuthController;
+use App\Http\Controllers\PeriodeController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -24,6 +26,22 @@ Route::controller(MyAuthController::class)->group(function () {
     Route::post('logout', 'logout')->middleware('auth:sanctum');
     Route::get('getjson', 'getjson');
 });
+
+
+Route::controller(MKController::class)->group(function () {
+    Route::get('mk', 'get_mk');
+    Route::post('mk', 'insert');
+    Route::put('mk', 'update');
+    Route::delete('mk', 'delete');
+});
+
+Route::controller(PeriodeController::class)->group(function () {
+   Route::get('periode', 'get_periode');
+   Route::post('periode', 'insert');
+   Route::put('periode', 'update');
+   Route::delete('periode', 'delete');
+});
+
 
 Route::get('smile', function() {
     return 'test API with authentication  ';
