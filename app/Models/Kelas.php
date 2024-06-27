@@ -20,4 +20,14 @@ class Kelas extends Model
         'jam_mulai',
         'jam_selesai'
         ];
-}
+
+    public function periode()
+    {
+        return $this->belongsTo(Periode::class, 'id_periode');
+    }
+
+    public function mk()
+    {
+        return $this->belongsTo(MK::class, 'id_mk');
+    }
+ }

@@ -14,10 +14,19 @@ class Pertemuan extends Model
 
     protected $fillable = [
         'id_pertemuan',
-        'id_mk',
-        'id_periode',
+        'id_kelas',
         'pertemuan_ke',
         'jam_mulai',
         'jam_selesai',
     ];
+
+    public function kelas()
+    {
+        return $this->belongsTo(Kelas::class, 'id_kelas');
+    }
+
+    public function photos () {
+        return $this->hasMany(PertemuanPhoto::class, 'id_pertemuan');
+    }
+
 }

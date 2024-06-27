@@ -3,6 +3,8 @@
 use App\Http\Controllers\MKController;
 use App\Http\Controllers\MyAuthController;
 use App\Http\Controllers\PeriodeController;
+use App\Http\Controllers\KelasController;
+use App\Http\Controllers\KehadiranController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -42,6 +44,12 @@ Route::controller(PeriodeController::class)->group(function () {
    Route::delete('periode', 'delete');
 });
 
+Route::controller(KelasController::class)->group(function () {
+    Route::get('kelas', 'get_kelas');
+    Route::post('kelas', 'insert');
+    Route::put('kelas', 'update');
+    Route::delete('kelas', 'delete');
+});
 
 Route::get('smile', function() {
     return 'test API with authentication  ';
