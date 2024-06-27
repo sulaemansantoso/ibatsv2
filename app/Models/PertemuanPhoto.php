@@ -17,4 +17,9 @@ class PertemuanPhoto extends Model
         'id_pertemuan',
         'id_photo',
     ];
+
+    public function pertemuan()
+    {
+        return $this->belongsTo(Pertemuan::class, 'id_pertemuan');
+    }
 }

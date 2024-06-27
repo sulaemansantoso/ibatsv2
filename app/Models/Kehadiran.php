@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Pertemuan;
+use App\Models\User;
 
 class Kehadiran extends Model
 {
@@ -18,4 +20,14 @@ class Kehadiran extends Model
         'id_siswa',
         'photo',
     ];
+
+    public function pertemuan()
+    {
+        return $this->belongsTo(Pertemuan::class, 'id_pertemuan');
+    }
+
+    public function siswa()
+    {
+        return $this->belongsTo(User::class, 'id_siswa');
+    }
 }
