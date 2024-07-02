@@ -6,6 +6,7 @@ use App\Http\Controllers\PeriodeController;
 use App\Http\Controllers\KelasController;
 use App\Http\Controllers\KehadiranController;
 use App\Http\Controllers\PertemuanController;
+use App\Http\Controllers\PhotoController;
 use App\Models\Pertemuan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -59,6 +60,22 @@ Route::controller(PertemuanController::class)->group(function () {
     Route::put('pertemuan', 'update');
     Route::delete('pertemuan', 'delete');
     Route::get('pertemuan/{id}', 'get_pertemuan_by_id');
+});
+
+
+Route::controller(KehadiranController::class)->group(function () {
+    Route::get('kehadiran', 'get_kehadiran');
+    Route::post('kehadiran', 'insert');
+    Route::put('kehadiran', 'update');
+    Route::delete('kehadiran', 'delete');
+});
+
+Route::controller(PhotoController::class)->group(function () {
+    Route::get('photo', 'get_photo');
+    Route::post('photo', 'insert');
+    Route::put('photo', 'update');
+    Route::delete('photo', 'delete');
+    Route::get('photo/{id}', 'get_photo_by_id');
 });
 
 Route::get('smile', function() {
