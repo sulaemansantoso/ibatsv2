@@ -16,7 +16,6 @@ return new class extends Migration
             $table->integer('id_kelas')->references('id_kelas')->on('kelas');
             $table->integer("no_pertemuan");
             $table->date("tgl_pertemuan");
-
             $table->timestamps();
         });
     }

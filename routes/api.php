@@ -5,6 +5,8 @@ use App\Http\Controllers\MyAuthController;
 use App\Http\Controllers\PeriodeController;
 use App\Http\Controllers\KelasController;
 use App\Http\Controllers\KehadiranController;
+use App\Http\Controllers\PertemuanController;
+use App\Models\Pertemuan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -49,6 +51,14 @@ Route::controller(KelasController::class)->group(function () {
     Route::post('kelas', 'insert');
     Route::put('kelas', 'update');
     Route::delete('kelas', 'delete');
+});
+
+Route::controller(PertemuanController::class)->group(function () {
+    Route::get('pertemuan', 'get_pertemuan');
+    Route::post('pertemuan', 'insert');
+    Route::put('pertemuan', 'update');
+    Route::delete('pertemuan', 'delete');
+    Route::get('pertemuan/{id}', 'get_pertemuan_by_id');
 });
 
 Route::get('smile', function() {

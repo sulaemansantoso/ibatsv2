@@ -15,7 +15,8 @@ class Pertemuan extends Model
     protected $fillable = [
         'id_pertemuan',
         'id_kelas',
-        'pertemuan_ke',
+        'no_pertemuan',
+        'tgl_pertemuan',
         'jam_mulai',
         'jam_selesai',
     ];
@@ -27,6 +28,10 @@ class Pertemuan extends Model
 
     public function photos () {
         return $this->hasMany(PertemuanPhoto::class, 'id_pertemuan');
+    }
+
+    public function kehadirans () {
+        return $this->hasMany(Kehadiran::class, 'id_pertemuan');
     }
 
 }
