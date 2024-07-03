@@ -6,6 +6,7 @@ use App\Http\Controllers\PeriodeController;
 use App\Http\Controllers\KelasController;
 use App\Http\Controllers\KehadiranController;
 use App\Http\Controllers\PertemuanController;
+use App\Http\Controllers\PertemuanPhotoController;
 use App\Http\Controllers\PhotoController;
 use App\Models\Pertemuan;
 use Illuminate\Http\Request;
@@ -77,6 +78,15 @@ Route::controller(PhotoController::class)->group(function () {
     Route::delete('photo', 'delete');
     Route::get('photo/{id}', 'get_photo_by_id');
 });
+
+Route::controller(PertemuanPhotoController::class)->group(function () {
+    Route::get('pertemuan_photo', 'get_pertemuan_photo');
+    Route::post('pertemuan_photo', 'AddPhoto');
+    Route::put('pertemuan_photo', 'update');
+    Route::delete('pertemuan_photo', 'delete');
+    Route::get('pertemuan_photo/{id}', 'get_pertemuan_photo_by_id');
+});
+
 
 Route::get('smile', function() {
     return 'test API with authentication  ';
