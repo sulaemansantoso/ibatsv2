@@ -12,12 +12,12 @@ OUTPUT_DIR = "output/"
 PUBLIC_OUTPUT_DIR = "/output/"
 
 '''connection initialization '''
-mydb = mysql.connector.connect(
-    host='localhost',
-    user='ibats_admin',
-    passwd='galath34',
-    database='IBDB2'
-)
+# mydb = mysql.connector.connect(
+#     host='localhost',
+#     user='ibats_admin',
+#     passwd='galath34',
+#     database='IBDB2'
+# )
 
 def detect_faces(filepath, classifier,file_name, id_pertemuan, scaleFactor=1.1, minNeighbors=5):
 
@@ -115,21 +115,23 @@ def detect_faces(filepath, classifier,file_name, id_pertemuan, scaleFactor=1.1, 
     my_cursor.close()
 
 def main():
-    '''main function'''
-    arg_length = sys.argv
-    destinationPath = sys.argv[1]
-    file_name = sys.argv[2]
-    idSchedulePhoto = sys.argv[3]
+    print("it works fine")
+    return "it works fine loh"
+    # '''main function'''
+    # arg_length = sys.argv
+    # destinationPath = sys.argv[1]
+    # file_name = sys.argv[2]
+    # idSchedulePhoto = sys.argv[3]
 
-    print ('destination path : ' +  destinationPath + "\n filename path :  " + file_name + "\n")
-    if (os.path.isfile(os.path.join(CASCADE_DIR, FACE_CLSF))):
-        print('classfier found')
-    face_classifier = cv2.CascadeClassifier(os.path.join(CASCADE_DIR,
-                                                         FACE_CLSF))
-    detect_faces(destinationPath, face_classifier,file_name, idSchedulePhoto)
-    #print("jalan loh")
+    # print ('destination path : ' +  destinationPath + "\n filename path :  " + file_name + "\n")
+    # if (os.path.isfile(os.path.join(CASCADE_DIR, FACE_CLSF))):
+    #     print('classfier found')
+    # face_classifier = cv2.CascadeClassifier(os.path.join(CASCADE_DIR,
+    #                                                      FACE_CLSF))
+    # detect_faces(destinationPath, face_classifier,file_name, idSchedulePhoto)
+    # #print("jalan loh")
 
-    mydb.close()
+    # mydb.close()
 
 if __name__ == "__main__":
     main()
