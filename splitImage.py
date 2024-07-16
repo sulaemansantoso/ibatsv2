@@ -7,19 +7,24 @@ import mysql.connector
 
 CASCADE_DIR = "../haarcascades"
 FACE_CLSF="haarcascade_frontalface_alt.xml"
+# FACE_CLSF="haarcascade_frontalface_alt_tree.xml"
+# FACE_CLSF="haarcascade_frontalface_alt2.xml"
+# FACE_CLSF="haarcascade_frontalface_default.xml"
+
+
 ROOT_DIR = "../storage/app/public/photo/"
 OUTPUT_DIR = "output/"
 PUBLIC_OUTPUT_DIR = "/output/"
 
 '''connection initialization '''
-# mydb = mysql.connector.connect(
-#     host='localhost',
-#     user='ibats_admin',
-#     passwd='galath34',
-#     database='IBDB2'
-# )
+mydb = mysql.connector.connect(
+    host='localhost',
+    user='ibats_admin',
+    passwd='galath34',
+    database='IBDB2'
+)
 
-def detect_faces(filepath, classifier,file_name, id_pertemuan, scaleFactor=1.1, minNeighbors=5):
+def detect_faces(filepath, classifier,file_name, id_pertemuan, scaleFactor=1.1, minNeighbors=3):
 
     '''Detect faces in an image and save the detection as json file'''
     public_folderpath = "http://114.7.152.254/ibatsv2/public/photo/" + filepath + "/"
@@ -29,8 +34,8 @@ def detect_faces(filepath, classifier,file_name, id_pertemuan, scaleFactor=1.1, 
     # print(arr)
     # print("----------------------------------")
 
-    # load image file
     #print ("\nfile_to_read "  + filepath + file_name)
+    # load image file
     local_file_total_path =  local_folderpath + file_name
 
     if(os.path.isfile(local_file_total_path)):
@@ -51,8 +56,8 @@ def detect_faces(filepath, classifier,file_name, id_pertemuan, scaleFactor=1.1, 
     #harus mengubah filepath jadi public_filepath
     (name,delimit,ext) = file_name.rpartition('.')
 
-    print('\npublic_filepath ' + public_folderpath);
-    print('\nlocal_filepath ' + local_folderpath);
+    print('\npublic_filepath ' + public_folderpath)
+    print('\nlocal_filepath ' + local_folderpath)
 
 
     # record detected face areas into a list of dictionary
@@ -115,23 +120,22 @@ def detect_faces(filepath, classifier,file_name, id_pertemuan, scaleFactor=1.1, 
     my_cursor.close()
 
 def main():
-    print("it works fine")
-    return "it works fine loh"
+
     # '''main function'''
-    # arg_length = sys.argv
-    # destinationPath = sys.argv[1]
-    # file_name = sys.argv[2]
-    # idSchedulePhoto = sys.argv[3]
+    arg_length = sys.argv
+    destinationPath = sys.argv[1]
+    file_name = sys.argv[2]
+    idSchedulePhoto = sys.argv[3]
 
-    # print ('destination path : ' +  destinationPath + "\n filename path :  " + file_name + "\n")
-    # if (os.path.isfile(os.path.join(CASCADE_DIR, FACE_CLSF))):
-    #     print('classfier found')
-    # face_classifier = cv2.CascadeClassifier(os.path.join(CASCADE_DIR,
-    #                                                      FACE_CLSF))
-    # detect_faces(destinationPath, face_classifier,file_name, idSchedulePhoto)
-    # #print("jalan loh")
+    print ('destination path : ' +  destinationPath + "\n filename path :  " + file_name + "\n")
+    if (os.path.isfile(os.path.join(CASCADE_DIR, FACE_CLSF))):
+        print('classfier found')
+    face_classifier = cv2.CascadeClassifier(os.path.join(CASCADE_DIR,
+                                                         FACE_CLSF))
+    detect_faces(destinationPath, face_classifier,file_name, idSchedulePhoto)
+    #print("jalan loh")
 
-    # mydb.close()
+    mydb.close()
 
 if __name__ == "__main__":
     main()

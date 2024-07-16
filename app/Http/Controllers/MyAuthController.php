@@ -11,6 +11,11 @@ use Illuminate\Http\JsonResponse;
 
 class MyAuthController extends BaseController
 {
+    public function import_user_by_csv()
+    {
+
+    }
+
 
     public function getjson() {
         return $this->sendResponse('TestAPI succesfull', 'Test API returns Succesfully');

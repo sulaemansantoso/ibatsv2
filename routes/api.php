@@ -8,6 +8,7 @@ use App\Http\Controllers\KehadiranController;
 use App\Http\Controllers\PertemuanController;
 use App\Http\Controllers\PertemuanPhotoController;
 use App\Http\Controllers\PhotoController;
+use App\Http\Controllers\UserKelasController;
 use App\Models\Pertemuan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -25,12 +26,22 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('login', [MyAuthController::class, 'login']);
 
+
+
+
 Route::controller(MyAuthController::class)->group(function () {
     Route::post('register', 'register');
     Route::post('register-2', 'register2');
     Route::post('login-2', 'login2');
     Route::post('logout', 'logout')->middleware('auth:sanctum');
     Route::get('getjson', 'getjson');
+});
+
+Route::controller(UserKelasController::class)->group(function () {
+    Route::get('user_kelas', 'get');
+    Route::post('user_kelas', 'insert');
+    Route::delete('user_kelas', 'delete');
+    Route::put('user_kelas', 'update');
 });
 
 
