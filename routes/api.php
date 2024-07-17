@@ -43,6 +43,7 @@ Route::controller(UserKelasController::class)->group(function () {
     Route::post('user_kelas', 'insert');
     Route::delete('user_kelas', 'delete');
     Route::put('user_kelas', 'update');
+    Route::post('user_kelas_import', 'import_from_excel');
 });
 
 
