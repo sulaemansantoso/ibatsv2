@@ -9,6 +9,11 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class UserKelasController extends Controller
 {
+    public function import_from_simba(Request $request) {
+        Excel::import(new UserKelasImport, $request->file('file'));
+        return $this->sendResponse('Kelas import Succesfully', 'UserKelas import Succesfully');
+    }
+
     public function import_from_excel(Request $request) {
         Excel::import(new UserKelasImport, $request->file('file'));
         return $this->sendResponse('Kelas import Succesfully', 'UserKelas import Succesfully');
