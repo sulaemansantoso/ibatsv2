@@ -35,6 +35,7 @@ Route::controller(MyAuthController::class)->group(function () {
     Route::post('login-2', 'login2');
     Route::post('logout', 'logout')->middleware('auth:sanctum');
     Route::get('getjson', 'getjson');
+    Route::post('import_user_by_excel', 'import_user_by_excel');
 });
 
 Route::controller(UserKelasController::class)->group(function () {

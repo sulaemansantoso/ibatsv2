@@ -8,12 +8,21 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Validator;
 use Illuminate\Http\JsonResponse;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Imports\UserImports;
 
 class MyAuthController extends BaseController
 {
-    public function import_user_by_csv()
+    public function import_user_by_excel(Request $request)
     {
-
+        //this code imports users from csv sent from $request
+        try {
+            Excel::import(new UserImports, $request->file('file'));
+        }
+        catch (\Exception $e) {
+            return response()->json($e->getMessage());
+        }
+        return $this->sendResponse('User import Succesfully', 'User import Succesfully');
     }
 
 
