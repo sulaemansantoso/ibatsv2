@@ -43,7 +43,10 @@ Route::controller(UserKelasController::class)->group(function () {
     Route::post('user_kelas', 'insert');
     Route::delete('user_kelas', 'delete');
     Route::put('user_kelas', 'update');
-    Route::post('user_kelas_import', 'import_from_excel');
+    Route::post('dosen_kelas_import', 'import_from_excel');
+    Route::post('dosen_kelas_import_simba', 'import_from_simba');
+    Route::post('mahasiswa_kelas_import', 'import_mahasiswa_from_excel');
+    Route::get('kelas_by_id_user', 'get_kelas_by_id');
 });
 
 
