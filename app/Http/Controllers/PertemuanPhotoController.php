@@ -11,6 +11,8 @@ use Storage;
 class PertemuanPhotoController extends Controller
 {
     //
+
+
     public function AddPhoto(Request $request){
         // $id_pertemuan = $request->id_pertemuan;
         $id_pertemuan = $request->input('id_pertemuan');
