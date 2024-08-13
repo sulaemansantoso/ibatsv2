@@ -16,8 +16,10 @@ class MyAuthController extends BaseController
     public function import_user_by_excel(Request $request)
     {
         //this code imports users from csv sent from $request
+        $path = $request->file('file');
+        echo ($path);
         try {
-            Excel::import(new UserImports, $request->file('file'));
+            Excel::import(new UserImports, $path);
         }
         catch (\Exception $e) {
             return response()->json($e->getMessage());
