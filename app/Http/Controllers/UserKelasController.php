@@ -64,7 +64,7 @@ class UserKelasController extends BaseController
                         "nama_kelas" : $r->kelas->nama_kelas;
                         "nama_mk" : $r->kelas->mk->nama_mk;
                     ]
-                )
+                     );
             }
 
 
