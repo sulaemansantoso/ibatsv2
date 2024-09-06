@@ -12,7 +12,10 @@ class MKController extends Controller
     public function get_mk()
     {
         $mk = MK::all();
-        return response()->json($mk);
+        return response()->json(
+	[
+	"data"=>$mk
+	]);
     }
 
     public function insert(Request $request)

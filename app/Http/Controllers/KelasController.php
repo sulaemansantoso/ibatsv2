@@ -17,7 +17,10 @@ class KelasController extends Controller
             $k->mk = $k->mk;
             $k->periode = $k->periode;
         }
-        return response()->json($kelas);
+        return response()->json(
+	[
+	"data"=> $kelas
+	]);
     }
 
     public function insert(Request $request)

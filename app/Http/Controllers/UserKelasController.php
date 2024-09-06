@@ -46,8 +46,7 @@ class UserKelasController extends BaseController
         }
         // return $result;
         return response()->json([
-            "data" : json_encode($result)
-        ]);
+            "data" => $result ]);
     }
 
     public function get_kelas_by_id_custom (Request $request) {

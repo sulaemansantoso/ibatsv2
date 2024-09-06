@@ -17,7 +17,10 @@ class PeriodeController extends Controller
             $p->tgl_mulai = date('d-M-Y', strtotime($p->tgl_mulai));
             $p->tgl_selesai = date('d-M-Y', strtotime($p->tgl_selesai));
         }
-        return response()->json($periode);
+        return response()->json(
+	[
+	"data" => $periode
+	]);
     }
 
     public function insert(Request $request)

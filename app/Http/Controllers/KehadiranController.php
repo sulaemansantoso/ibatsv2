@@ -13,7 +13,10 @@ class KehadiranController extends Controller
     {
         $kehadiran = Kehadiran::find($id);
         $kehadiran->pertemuan = $kehadiran->pertemuan;
-        return response()->json($kehadiran);
+        return response()->json(
+	[
+	"data" => $kehadiran
+	]);
     }
 
     public function get_kehadiran()

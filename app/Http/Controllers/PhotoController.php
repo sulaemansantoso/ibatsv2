@@ -13,13 +13,18 @@ class PhotoController extends Controller
     public function get_photo_by_id($id)
     {
         $photo = Photo::find($id);
-        return response()->json($photo);
+        return response()->json([
+	  "data"=> $photo
+	]);
     }
 
     public function get_photo()
     {
         $photo = Photo::all();
-        return response()->json($photo);
+        return response()->json(
+	[
+	 "data" => $photo
+	]);
     }
 
     public function insert(Request $request)
