@@ -18,7 +18,7 @@ class UserKelasImport implements ToModel, WithHeadingRow
     */
     public function model(array $row)
     {
-        $id_user = User::where('kode_user', $row['nrp'])->first()->id_user;
+        $id_user = User::where('kode_user', $row['nrp'])->first()->id;
         $id_mk = MK::where('kode_mk', $row['kode_mk'])->first()->id_mk;
         $id_kelas = Kelas::where('id_mk', $id_mk)->where('nama_kelas', $row['kelas'])->first()->id_kelas;
 
