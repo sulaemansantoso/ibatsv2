@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+
 class MK extends Model
 {
     use HasFactory;
@@ -20,5 +21,11 @@ class MK extends Model
     ];
 
     public $timestamps = true;
+
+
+public function kelas() {
+  return this.hasMany(Kelas::class,'id_mk');
+}
+
 
 }
