@@ -9,6 +9,16 @@ class PertemuanController extends Controller
 {
     //
 
+  public function get_pertemuan_by_id_kelas(Request $request) {
+    $id_kelas = $request->id_kelas;
+
+    $result= Pertemuan::where('id_kelas', $id_kelas)->get();
+
+    return response()->json([
+      "data"=> $result
+    ]);
+  }
+
   public function get_pertemuan_by_id($id)
   {
     $pertemuan = Pertemuan::find($id);

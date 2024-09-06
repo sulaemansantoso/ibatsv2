@@ -76,6 +76,7 @@ Route::controller(PertemuanController::class)->group(function () {
     Route::put('pertemuan', 'update');
     Route::delete('pertemuan', 'delete');
     Route::get('pertemuan/{id}', 'get_pertemuan_by_id');
+    Route::post('pertemuan_by_kode_kelas', 'get_pertemuan_by_kode_kelas');
 });
 
 
