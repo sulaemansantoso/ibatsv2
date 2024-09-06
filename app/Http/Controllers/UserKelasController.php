@@ -20,7 +20,7 @@ class UserKelasController extends BaseController
 
     public function import_from_simba(Request $request) {
         Excel::import(new SimbaImport, $request->file('file'));
-        return $this->sendResponse('Kelas import Succesfully', 'Simba import Succesfully');
+        return $this->sendResponse('Simba import Succesfully', 'Simba import Succesfully');
     }
 
     public function import_from_excel(Request $request) {
@@ -37,7 +37,7 @@ class UserKelasController extends BaseController
         $kode_user = $request->kode_user;
         $user = User::where('kode_user', $kode_user)->first();
 
-        $result =  UserKelas::where('id_user', $user->id)->get();
+        $result =  UserKelas::where('id_user', $user->id)->get(['id_user_kelas','id_user','id_kelas']);
 
         foreach ($result as $r) {
             $r->kelas = $r->kelas;
@@ -46,6 +46,34 @@ class UserKelasController extends BaseController
         }
         return $result;
     }
+
+    public function get_kelas_by_id_custom(Request $request) {
+        $kode_user = $request->kode_user;
+        $user = User::where('kode_user', $kode_user)-> first();
+        
+        if ($user) {
+            $result =  UserKelas::where('id_user', $user->id)->get(['id_user_kelas','id_user','id_kelas']);
+
+
+            $array_resp = array()
+            foreach($result as $r) {
+                $array_resp.push(
+                    (object) [
+                        "id_user_kelas" : $r->id_kelas;
+                        "nama_kelas" : $r->kelas->nama_kelas;
+                        "nama_mk" : $r->kelas->mk->nama_mk;
+                    ]
+                )
+            }
+
+
+            return JsonResponse(json_encode($array_resp));
+        }
+        else {
+            return response()->json([]);
+        }
+    }
+
 
     public function insert(Request $request) {
         $userKelas = new UserKelas();

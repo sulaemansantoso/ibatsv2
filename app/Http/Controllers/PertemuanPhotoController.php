@@ -40,10 +40,8 @@ class PertemuanPhotoController extends Controller
 
         //$executePython = "python /var/www/html/ibatsv2/splitImage.py '" .$destination_path ."'" . $filename . " " . ; ;
         //  $executionScript = "python ../testos.py";
-
-
         $executionScript = "python ../splitImage.py ".$destination_path ." " . $image_filename . " " . $id_pertemuan;
-        echo $executionScript;
+        //echo $executionScript;
         $result = exec($executionScript);
 
 
