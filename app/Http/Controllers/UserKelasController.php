@@ -48,35 +48,6 @@ class UserKelasController extends BaseController
     }
 
 
-    /*
-    public function get_kelas_by_id_custom(Request $request) {
-        $kode_user = $request->kode_user;
-        $user = User::where('kode_user', $kode_user)-> first();
-        
-        if ($user) {
-            $result =  UserKelas::where('id_user', $user->id)->get(['id_user_kelas','id_user','id_kelas']);
-
-
-            $array_resp = [];
-
-            foreach($result as $r) {
-                $array_resp.push(
-                     [
-                        "id_user_kelas" : $r->id_kelas;
-                        "nama_kelas" : $r->kelas->nama_kelas;
-                        "nama_mk" : $r->kelas->mk->nama_mk;
-                    ]
-                     );
-            }
-
-
-            return JsonResponse(json_encode($array_resp));
-        }
-        else {
-            return response()->json([]);
-        }
-    }
-*/
 
     public function insert(Request $request) {
         $userKelas = new UserKelas();
