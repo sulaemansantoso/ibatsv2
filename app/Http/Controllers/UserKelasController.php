@@ -46,7 +46,7 @@ class UserKelasController extends BaseController
         }
         // return $result;
         return response()->json([
-            "data" : $result
+            "data" : json_encode($result)
         ]);
     }
 
