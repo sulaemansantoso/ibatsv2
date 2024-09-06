@@ -27,8 +27,6 @@ use Illuminate\Support\Facades\Route;
 Route::post('login', [MyAuthController::class, 'login']);
 
 
-
-
 Route::controller(MyAuthController::class)->group(function () {
     Route::post('register', 'register');
     Route::post('register-2', 'register2');
@@ -46,8 +44,8 @@ Route::controller(UserKelasController::class)->group(function () {
     Route::post('dosen_kelas_import', 'import_from_excel');
     Route::post('dosen_kelas_import_simba', 'import_from_simba');
     Route::post('mahasiswa_kelas_import', 'import_mahasiswa_from_excel');
-    Route::get('kelas_by_kode_user', 'get_kelas_by_id');
-    // Route::get('kelas_by_kode_user_custom', 'get_kelas_by_id_custom');
+    Route::post('kelas_by_kode_user', 'get_kelas_by_id');
+    Route::post('kelas_by_kode_user_custom', 'get_kelas_by_id_custom');
 });
 
 
