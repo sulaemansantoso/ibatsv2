@@ -44,7 +44,15 @@ class UserKelasController extends BaseController
             $r->kelas->mk = $r->kelas->mk->get(['kode_mk','nama_mk']);
             // $r->user = $r->user;
         }
-        return $result;
+        // return $result;
+        return response()->json([
+            "data" : $result
+        ]);
+    }
+
+    public function get_kelas_by_id_custom (Request $request) {
+
+
     }
 
 
