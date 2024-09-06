@@ -55,10 +55,11 @@ class UserKelasController extends BaseController
             $result =  UserKelas::where('id_user', $user->id)->get(['id_user_kelas','id_user','id_kelas']);
 
 
-            $array_resp = array();
+            $array_resp = [];
+
             foreach($result as $r) {
                 $array_resp.push(
-                    (object) [
+                     [
                         "id_user_kelas" : $r->id_kelas;
                         "nama_kelas" : $r->kelas->nama_kelas;
                         "nama_mk" : $r->kelas->mk->nama_mk;
