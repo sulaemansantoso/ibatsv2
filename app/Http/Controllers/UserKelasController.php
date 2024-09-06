@@ -47,6 +47,8 @@ class UserKelasController extends BaseController
         return $result;
     }
 
+
+    /*
     public function get_kelas_by_id_custom(Request $request) {
         $kode_user = $request->kode_user;
         $user = User::where('kode_user', $kode_user)-> first();
@@ -74,7 +76,7 @@ class UserKelasController extends BaseController
             return response()->json([]);
         }
     }
-
+*/
 
     public function insert(Request $request) {
         $userKelas = new UserKelas();
