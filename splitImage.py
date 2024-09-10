@@ -4,7 +4,7 @@ import numpy as np
 import os
 import json
 import mysql.connector
-import face_recogntion
+import face_recognition
 
 CASCADE_DIR = "../haarcascades"
 FACE_CLSF="haarcascade_frontalface_alt.xml"
@@ -46,10 +46,10 @@ def detect_faces(filepath, classifier,file_name, id_pertemuan, scaleFactor=1.1, 
 
     img = cv2.imread(local_file_total_path)
     # Ubah gambar ke format RGB (face_recognition menggunakan format ini)
-    rgb_image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+    rgb_image = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
 
     # Deteksi lokasi wajah dalam gambar
-    face_locations = face_recognition.face_locations(rgb_image)
+    faces = face_recognition.face_locations(rgb_image)
 
     # convert image to grayscale
     # gray_img = cv2.cvtColor(src=img, code=cv2.COLOR_BGR2GRAY)
