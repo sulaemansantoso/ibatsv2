@@ -18,7 +18,7 @@ class Kehadiran extends Model
         'id_kehadiran',
         'id_pertemuan',
         'id_siswa',
-        'photo',
+        'id_pertemuan_photo',
     ];
 
     public function pertemuan()
@@ -29,5 +29,10 @@ class Kehadiran extends Model
     public function siswa()
     {
         return $this->belongsTo(User::class, 'id_siswa');
+    }
+
+    public function pertemuan_photo()
+    {
+        return $this->belongsTo(PertemuanPhoto::class, 'id_pertemuan_photo');
     }
 }

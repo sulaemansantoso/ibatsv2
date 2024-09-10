@@ -34,11 +34,26 @@ class KehadiranController extends Controller
             $kehadiran->id_pertemuan = $request->id_pertemuan;
             $kehadiran->id_siswa = $request->id_siswa;
             $kehadiran->kehadiran = $request->kehadiran;
+            $kehadiran->id_pertemuan_photo = $request->id_pertemuan_photo;
             $kehadiran->save();
         }
         catch (\Exception $e) {
             return response()->json($e->getMessage());
         }
+        return response()->json($kehadiran);
+    }
+
+    public function claim_photo(Request $request){
+        $kehadiran = Kehadiran::find($request->id_kehadiran);
+        $kehadiran->id_pertemuan_photo = $request->id_pertemuan_photo;
+        $kehadiran->save();
+        return response()->json($kehadiran);
+    }
+
+    public function clear_photo(Request $request){
+        $kehadiran = Kehadiran::find($request->id_kehadiran);
+        $kehadiran->id_pertemuan_photo = null;
+        $kehadiran->save();
         return response()->json($kehadiran);
     }
 

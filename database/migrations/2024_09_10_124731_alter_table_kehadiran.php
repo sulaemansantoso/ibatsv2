@@ -12,6 +12,10 @@ return new class extends Migration
     public function up(): void
     {
         //
+
+        Schema::table('kehadiran', function (Blueprint $table) {
+            $table->integer('photo')->renamed('id_pertemuan_photo')->references('id_pertemuan_photo')->on('pertemuan_photo');
+        });
     }
 
     /**
@@ -20,5 +24,9 @@ return new class extends Migration
     public function down(): void
     {
         //
+
+        Schema::table('kehadiran', function (Blueprint $table) {
+            $table->integer('id_pertemuan_photo')->rename('photo')->references('id_pertemuan_photo')->on('pertemuan_photo');
+        });
     }
 };
