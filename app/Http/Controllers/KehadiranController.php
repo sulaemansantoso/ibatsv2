@@ -25,6 +25,7 @@ class KehadiranController extends Controller
         foreach ($kehadiran as $k) {
             $k->pertemuan = $k->pertemuan;
         }
+	return response()->json([ "data"=>$kehadiran ]);
     }
 
     public function insert(Request $request)
