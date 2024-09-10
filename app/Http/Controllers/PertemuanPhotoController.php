@@ -12,12 +12,10 @@ class PertemuanPhotoController extends Controller
 {
     //
 
-    public function getPertemuanPhoto(Request $request) {
-  	
-	$result = PertemuanPhoto::all();
-	return response.json([
-	"data"=> $result ]);
-
+    public function get_pertemuan_photo(Request $request) {
+	    $result = PertemuanPhoto::all();
+	    return response.json([
+	    "data"=> $result ]);
     }
 
 
