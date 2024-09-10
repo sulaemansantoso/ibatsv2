@@ -18,6 +18,15 @@ class PertemuanPhotoController extends Controller
 	    "data"=> $result ]);
     }
 
+    public function get_pertemuan_photo_by_id_pertemuan(Request $request) {
+        $id_pertemuan = $request->id_pertemuan;
+        $result = PertemuanPhoto::where('id_pertemuan', $id_pertemuan)->get();
+
+
+        return response()->json([
+        "data"=> $result ]);
+    }
+
 
     public function AddPhoto(Request $request){
         // $id_pertemuan = $request->id_pertemuan;
