@@ -14,7 +14,7 @@ class PertemuanPhotoController extends Controller
 
     public function get_pertemuan_photo(Request $request) {
 	    $result = PertemuanPhoto::all();
-	    return response().json([
+	    return response()->json([
 	    "data"=> $result ]);
     }
 
