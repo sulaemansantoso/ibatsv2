@@ -13,6 +13,7 @@ FACE_CLSF="haarcascade_frontalface_alt.xml"
 # FACE_CLSF="haarcascade_frontalface_default.xml"
 
 
+#ROOT_DIR = "../storage/app/public/photo/"
 ROOT_DIR = "../storage/app/public/photo/"
 OUTPUT_DIR = "output/"
 PUBLIC_OUTPUT_DIR = "/output/"
@@ -68,16 +69,14 @@ def detect_faces(filepath, classifier,file_name, id_pertemuan, scaleFactor=1.1, 
     # record detected face areas into a list of dictionary
     faces_to_json = []
     sql_to_json = []
-    i=0
-    for (x, y, w, h) in faces:
-        cropped = img[y:y+h, x:x+w]
-        i = i+1
+    for i,(top, right, bottom, left) in enumerate(faces):
+        cropped = img[top:bottom, left:right]
         output_path =  local_folderpath +  OUTPUT_DIR + name + '-' + str(i) + '.jpg'
         output_log_path = local_folderpath + filepath +  OUTPUT_DIR + name + '-' + str(i) + '.log'
 
-        if (not os.path.isdir(local_folderpath + OUTPUT_DIR)):
-            os.mkdir(local_folderpath +  OUTPUT_DIR) #create directory output apabila diperlukan
-
+        #if (not os.path.isdir(local_folderpath + OUTPUT_DIR)):
+           # os.mkdir(local_folderpath +  OUTPUT_DIR) #create directory output apabila diperlukan
+        os.makedirs(local_folderpath + OUTPUT_DIR, mode =0o777, exist_ok = True)
         cv2.imwrite( output_path, cropped) #cropped image saved to output_folder
 
         '''this needs to be checked ini buat ngesql photo and schedulephoto'''
@@ -98,8 +97,8 @@ def detect_faces(filepath, classifier,file_name, id_pertemuan, scaleFactor=1.1, 
 
         '''   '''
 
-        rect = {'color': '#00ff00', 'x': int(x), 'y': int(y),
-                'width': int(w), 'height': int(h), 'NRP' : '','Name':'','Id_Photo': str(last_photo_id) }
+        rect = {'color': '#00ff00', 'top': int(top), 'bottom': int(bottom),
+                'left': int(left), 'right': int(right), 'NRP' : '','Name':'','Id_Photo': str(last_photo_id) }
         faces_to_json.append(rect)
     # save detected face areas as json file
     with open( local_folderpath + name + '.json', 'w') as outfile:

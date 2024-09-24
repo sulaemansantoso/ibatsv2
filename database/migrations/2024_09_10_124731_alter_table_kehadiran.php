@@ -14,7 +14,7 @@ return new class extends Migration
         //
 
         Schema::table('kehadiran', function (Blueprint $table) {
-            $table->integer('photo')->renamed('id_pertemuan_photo')->references('id_pertemuan_photo')->on('pertemuan_photo');
+		$table->renameColumn('photo','id_pertemuan_photo');
         });
     }
 
@@ -26,7 +26,7 @@ return new class extends Migration
         //
 
         Schema::table('kehadiran', function (Blueprint $table) {
-            $table->integer('id_pertemuan_photo')->rename('photo')->references('id_pertemuan_photo')->on('pertemuan_photo');
+		$table->renameColumn('id_pertemuan_photo', 'photo');
         });
     }
 };
