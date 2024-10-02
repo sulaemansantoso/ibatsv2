@@ -98,7 +98,8 @@ Route::controller(PhotoController::class)->group(function () {
 Route::controller(PertemuanPhotoController::class)->group(function () {
     Route::get('pertemuan_photo', 'get_pertemuan_photo');
     Route::post('pertemuan_photo', 'AddPhoto');
-Route::post('pertemuan_photo_add','AddPhoto2');
+    Route::post('pertemuan_photo_add','AddPhoto2');
+   Route::post('pertemuan_photo_test', 'TestPhoto');
     Route::put('pertemuan_photo', 'update');
     Route::delete('pertemuan_photo', 'delete');
     Route::get('pertemuan_photo/{id}', 'get_pertemuan_photo_by_id');
