@@ -12,6 +12,11 @@ return new class extends Migration
     public function up(): void
     {
         //
+        Schema::table('pertemuan', function (Blueprint $table) {
+            $table->time('jam_mulai');
+            $table->time('jam_selesai');
+            $table->dropColumn('no_pertemuan');
+        });
     }
 
     /**
@@ -20,5 +25,10 @@ return new class extends Migration
     public function down(): void
     {
         //
+        Schema::table('pertemuan', function (Blueprint $table) {
+            $table->dropColumn('jam_mulai');
+            $table->dropColumn('jam_selesai');
+            $table->integer('no_pertemuan');
+        });
     }
 };
