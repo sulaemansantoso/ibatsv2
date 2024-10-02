@@ -13,6 +13,8 @@ class PertemuanController extends Controller
     $id_kelas = $request->id_kelas;
 
     $result= Pertemuan::where('id_kelas', $id_kelas)->get();
+    $result->tgl_pertemuan = date('d-M-Y', strtotime($result->tgl_pertemuan));
+    $result->tgl_jam = $result->tgl_pertemuan.','.$result->jam_mulai;
 
     return response()->json([
       "data"=> $result
@@ -45,6 +47,7 @@ class PertemuanController extends Controller
       $pertemuan->id_kelas = $request->id_kelas;
       $pertemuan->no_pertemuan = $request->no_pertemuan;
       $pertemuan->tgl_pertemuan = $request->tgl_pertemuan;
+      $pertemuan->jam_mulai = $request->jam_mulai;
       $pertemuan->save();
     }
     catch (\Exception $e) {
@@ -59,6 +62,7 @@ class PertemuanController extends Controller
     $pertemuan->id_kelas = $request->id_kelas?$request->id_kelas:$pertemuan->id_kelas;
     $pertemuan->no_pertemuan = $request->no_pertemuan?$request->no_pertemuan:$pertemuan->no_pertemuan;
     $pertemuan->tgl_pertemuan = $request->tgl_pertemuan?$request->tgl_pertemuan:$pertemuan->tgl_pertemuan;
+    $pertemuan->jam_mulai = $request->jam_mulai?$request->jam_mulai:$pertemuan->jam_mulai;
     $pertemuan->save();
     return response()->json($pertemuan);
   }
