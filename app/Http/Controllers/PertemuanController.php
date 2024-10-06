@@ -12,9 +12,15 @@ class PertemuanController extends Controller
   public function get_pertemuan_by_id_kelas(Request $request) {
     $id_kelas = $request->id_kelas;
 
-    $result= Pertemuan::where('id_kelas', $id_kelas)->get();
-    $result->tgl_pertemuan = date('d-M-Y', strtotime($result->tgl_pertemuan));
-    $result->tgl_jam = $result->tgl_pertemuan.','.$result->jam_mulai;
+    $result= Pertemuan::select('id_kelas','id_pertemuan','tgl_pertemuan','jam_mulai', 'tgl_pertemuan')->where('id_kelas', $id_kelas)->get();
+    
+    foreach ($result as $p) {
+
+    $p->tgl_pertemuan = date('d M Y', strtotime($p->tgl_pertemuan));
+    $p->jam_mulai = date('H:i', strtotime($p->jam_mulai));    
+    $p->tgl_jam = $p->tgl_pertemuan.' - '.$p->jam_mulai;
+
+    }
 
     return response()->json([
       "data"=> $result
@@ -24,16 +30,23 @@ class PertemuanController extends Controller
   public function get_pertemuan_by_id($id)
   {
     $pertemuan = Pertemuan::find($id);
+    $pertemuan->tgl_pertemuan = date('d-M-Y', strtotime($pertemuan->tgl_pertemuan));
+    $pertemuan->jam_mulai = date('H:i', strtotime($pertemuan->jam_mulai));
+
+    $pertemuan->tgl_jam = $pertemuan->tgl_pertemuan . "-" . $pertemuan->jam_mulai;
     $pertemuan->kelas = $pertemuan->kelas;
     return response()->json($pertemuan);
   }
 
   public function get_pertemuan()
   {
-    $pertemuan = Pertemuan::all();
+    $pertemuan = Pertemuan::All();
+  
     foreach ($pertemuan as $p) {
         $p->kelas = $p->kelas;
-
+	$p->tgl_pertemuan = date('d M Y', strtotime($p->tgl_pertemuan));
+	$p->jam_mulai = date('H:i', strtotime($p->jam_mulai));
+    	$p->tgl_jam = $p->tgl_pertemuan . "-" . $p->jam_mulai;
     }
 
 
@@ -45,9 +58,9 @@ class PertemuanController extends Controller
     try {
       $pertemuan = new Pertemuan();
       $pertemuan->id_kelas = $request->id_kelas;
-      $pertemuan->no_pertemuan = $request->no_pertemuan;
       $pertemuan->tgl_pertemuan = $request->tgl_pertemuan;
       $pertemuan->jam_mulai = $request->jam_mulai;
+      $pertemuan->jam_selesai = $request->jam_mulai;
       $pertemuan->save();
     }
     catch (\Exception $e) {
