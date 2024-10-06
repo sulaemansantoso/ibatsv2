@@ -33,7 +33,17 @@ class PertemuanPhotoController extends Controller
         $id = $request->id_pertemuan;
 
 
-        $result = PertemuanPhoto::select(id_pertemuan,id_photo)->where('id_pertemuan', $id)->get();
+        $finder = PertemuanPhoto::with('photo','user')->where('id_pertemuan', $id)->get();
+
+        foreach($finder as $f) {
+            $temp->id = $f->id_pertemuan_photo;
+            $temp->idStudent = $f->user->kode_user;
+            $temp->name = $f->user->name;
+            $temp->path = $f->photo->path;
+
+            $result[] = $temp;
+        }
+
         return response()->json([
         "data"=> $result ]);
 
