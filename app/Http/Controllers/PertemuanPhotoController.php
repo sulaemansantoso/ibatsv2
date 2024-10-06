@@ -16,6 +16,29 @@ class PertemuanPhotoController extends Controller
 {
     //
 
+    public function tag_pertemuan_photo(Request $request) {
+        $id_user = $request->id_user;
+        $id_pertemuan_photo = $request->id_pertemuan_photo;
+
+        $finder = PertemuanPhoto::find($id_pertemuan_photo);
+        $finder->id_user = $id_user;
+        $finder->save();
+
+        return response()->json([
+            "data"=> $finder
+        ]);
+    }
+
+    public function get_pertemuan_photo_by_id(Request $request) {
+        $id = $request->id_pertemuan;
+
+
+        $result = PertemuanPhoto::select(id_pertemuan,id_photo)->where('id_pertemuan', $id)->get();
+        return response()->json([
+        "data"=> $result ]);
+
+    }
+
     public function get_pertemuan_photo(Request $request) {
 	    $result = PertemuanPhoto::all();
 	    return response()->json([
@@ -33,7 +56,7 @@ class PertemuanPhotoController extends Controller
 
 
   public function TestPhoto(Request $request) {
-	
+
 	$file = $request->file('file');
 	$image= $file->store('test_photo2','public');
 	echo $image;
@@ -54,7 +77,7 @@ class PertemuanPhotoController extends Controller
         // $id_pertemuan = $request->id_pertemuan;
         $id_pertemuan = $request->input('id_pertemuan');
 	$file_input = $request->file('file');
-	
+
 	$validator = \Validator::make(['file' => $file_input], [
         	'file' => 'required|image|mimes:jpeg,png,jpg,gif',
     	]);
@@ -66,7 +89,7 @@ class PertemuanPhotoController extends Controller
         	], 200);
     	}
     	$fileSize = $file_input->getSize() / 1024; // Ukuran dalam KB
-        $maxSize = 2048; 
+        $maxSize = 2048;
         $manager = new ImageManager(new Driver());
 	if ($fileSize > $maxSize) {
             // Resize gambar jika ukuran file lebih besar dari yang diizinkan
@@ -91,12 +114,12 @@ class PertemuanPhotoController extends Controller
             // Ganti file_input dengan gambar yang sudah diresize
             $file_input = new \Illuminate\Http\UploadedFile(public_path($tempPath), $file_input->getClientOriginalName());
         }
-        
+
         $id_kelas = Pertemuan::find($id_pertemuan)->kelas->id_kelas;
         //$file_input = $request->file('file');
         //store the image
         $destination_path = $id_kelas . '/' . $id_pertemuan ;
-	
+
 	$image = $file_input->store('photo/'.$id_kelas . '/' . $id_pertemuan, 'public');
 	$image_filename = basename($image);
 
@@ -115,7 +138,7 @@ class PertemuanPhotoController extends Controller
         //$executePython = "python /var/www/html/ibatsv2/splitImage.py '" .$destination_path ."'" . $filename . " " . ; ;
         //  $executionScript = "python ../testos.py";
         $executionScript = "python3 ../splitImage.py ".$destination_path ." " . $image_filename . " " . $id_pertemuan;
-        
+
         $result = exec($executionScript);
 	$result = json_decode($result,true);
         //once the image is stored in public folder

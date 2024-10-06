@@ -16,7 +16,19 @@ class PertemuanPhoto extends Model
         'id_pertemuan_photo',
         'id_pertemuan',
         'id_photo',
+        'id_user',
     ];
+
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'id');
+    }
+
+    public function photo()
+    {
+        return $this->belongsTo(Photo::class, 'id_photo');
+    }
 
     public function pertemuan()
     {
