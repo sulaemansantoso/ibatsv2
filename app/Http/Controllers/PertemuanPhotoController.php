@@ -34,6 +34,7 @@ class PertemuanPhotoController extends Controller
 
 
         $finder = PertemuanPhoto::with('photo','user')->where('id_pertemuan', $id)->get();
+        $result = [];
 
         foreach($finder as $f) {
             $temp->id = $f->id_pertemuan_photo;
