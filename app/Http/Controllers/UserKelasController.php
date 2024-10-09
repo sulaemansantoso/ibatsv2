@@ -36,7 +36,8 @@ class UserKelasController extends BaseController
 
     public function get_kelas_by_id(Request $request) {
         $kode_user = $request->kode_user;
-        $user = User::where('kode_user', $kode_user)->first();
+	$user = User::where('kode_user', $kode_user)->first();
+	echo $user;
 
         $result =  UserKelas::where('id_user', $user->id)->get(['id_user_kelas','id_user', 'id_kelas']);
 
