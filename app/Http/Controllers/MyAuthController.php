@@ -47,6 +47,7 @@ class MyAuthController extends BaseController
             $success['name'] =  $user->name;
             $success['id_user'] = $user->kode_user;
             $success['email'] = $user->email;
+            $success['role'] = $user->role == 2? 'dosen':'mahasiswa';
             return $this->sendResponse($success, 'User Login Succesfully');
         } else {
             return $this->sendError('Login failed. Your username or password may be incorrect.', []);
@@ -80,6 +81,7 @@ class MyAuthController extends BaseController
         'email' => 'required|email',
         'password' => 'required',
         'kode_user' => 'required',
+        'role' => 'required',
     ]);
 
     if($validator->fails()){
