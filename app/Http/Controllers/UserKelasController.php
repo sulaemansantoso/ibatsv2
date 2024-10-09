@@ -6,6 +6,7 @@ use App\Imports\SimbaImport;
 use Illuminate\Http\Request;
 use App\Models\UserKelas;
 use App\Models\User;
+use App\Models\MK;
 use App\Imports\UserKelasImport;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -50,8 +51,30 @@ class UserKelasController extends BaseController
     }
 
     public function get_kelas_by_id_custom (Request $request) {
+        $kode_user = $request->kode_user;
+
+        $user = User::where('kode_user', $kode_user)->first();
+
+        //$result =  UserKelas::where('id_user', $user->id)->get(['id_user_kelas','id_user', 'id_kelas']);
+        $result = UserKelas::with('kelas','user')->where('id_user', $user->id)->get();
 
 
+        $adjusted_result = [];
+        foreach ($result as $r) {
+            $temp = new UserKelas;
+            $temp->id_user = $r->user->kode_user;
+            $temp->id_kelas = $r->kelas->id_kelas;
+            $temp->kode_mk = $r->kelas->mk->kode_mk;
+            $temp->nama_mk = $r->kelas->mk->nama_mk;
+            $temp->nama_kelas = $r->kelas->nama_kelas;
+            $temp->jam_mulai = $r->kelas->jam_mulai;
+            $temp->jam_selesai = $r->kelas->jam_selesai;
+            $adjusted_result[] = $temp;
+            // $r->user = $r->user;
+        }
+        // return $result;
+        return response()->json([
+            "data" => $adjusted_result ]);
     }
 
 
