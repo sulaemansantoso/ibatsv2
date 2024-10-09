@@ -97,14 +97,14 @@ Route::controller(PhotoController::class)->group(function () {
 
 Route::controller(PertemuanPhotoController::class)->group(function () {
     Route::get('pertemuan_photo', 'get_pertemuan_photo');
-    Route::get('pertemuan_photo_by_id', 'get_pertemuan_photo_by_id');
+    Route::post('pertemuan_photo_by_id', 'get_pertemuan_photo_by_id');
     Route::post('pertemuan_photo', 'AddPhoto');
     Route::post('pertemuan_photo_add','AddPhoto2');
     Route::post('pertemuan_photo_test', 'TestPhoto');
     Route::post('pertemuan_photo_tag_photo', 'tag_pertemuan_photo');
     Route::put('pertemuan_photo', 'update');
     Route::delete('pertemuan_photo', 'delete');
-    Route::get('pertemuan_photo/{id}', 'get_pertemuan_photo_by_id');
+   // Route::get('pertemuan_photo/{id}', 'get_pertemuan_photo_by_id');
 });
 
 
