@@ -17,7 +17,10 @@ Route::get('/', function () {
 });
 
 Route::get('/login', function() {
-    return response('please login to access API',403);
+   // return response('please login to access API',403);
+   return response()->json(
+     ["message"=> "route error or auth missing"],403
+   );
 })->name('login');
 
 Route::get('smile', function() { return 'catch you smiling huh';});

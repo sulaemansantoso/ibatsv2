@@ -13,7 +13,7 @@ return new class extends Migration
     {
         //
 
-        Schema::table('pertemuan', function (Blueprint $table) {
+        Schema::table('pertemuan_photo', function (Blueprint $table) {
             $table->integer('id_user')->references('id')->on('users')->nullable();
 
         });
@@ -25,7 +25,7 @@ return new class extends Migration
     public function down(): void
     {
         //
-        Schema::table('pertemuan', function (Blueprint $table) {
+        Schema::table('pertemuan_photo', function (Blueprint $table) {
             $table->dropColumn('id_user');
         });
     }

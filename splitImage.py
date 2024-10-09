@@ -29,7 +29,8 @@ mydb = mysql.connector.connect(
 def detect_faces(filepath, classifier,file_name, id_pertemuan, scaleFactor=1.1, minNeighbors=3):
 
     '''Detect faces in an image and save the detection as json file'''
-    public_folderpath = "http://114.7.152.254/ibatsv2/public/photo/" + filepath + "/"
+   # public_folderpath = "http://114.7.152.254/ibatsv2/public/photo/" + filepath + "/"
+    public_folderpath = "http://114.7.152.254/storage/photo/" + filepath + "/"
     local_folderpath = "../storage/app/public/photo/" + filepath + "/"
 
     # arr = os.listdir('../storage/app/public')

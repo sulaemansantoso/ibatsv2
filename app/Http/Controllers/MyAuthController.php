@@ -49,7 +49,7 @@ class MyAuthController extends BaseController
             $success['email'] = $user->email;
             return $this->sendResponse($success, 'User Login Succesfully');
         } else {
-            return $this->sendError('Unauthorised', ['error'=>'Unauthorised']);
+            return $this->sendError('Login failed. Your username or password may be incorrect.', []);
         }
     }
 
@@ -106,7 +106,7 @@ class MyAuthController extends BaseController
         return $this->sendResponse($success, 'User Login Succesfully');
     }
     else {
-        return $this->sendError('Unauthorised', ['error'=>'Unauthorised']);
+        return $this->sendError('Login failed. Your username or password may be incorrect.', []);
     }
    }
 

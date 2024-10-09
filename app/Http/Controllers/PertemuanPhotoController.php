@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Pertemuan;
 use App\Models\PertemuanPhoto;
 use App\Models\Photo;
+use App\Models\User;
 use File;
 use Storage;
 use Intervention\Image\ImageManager;
@@ -15,18 +16,27 @@ use Intervention\Image\Drivers\Gd\Driver;
 class PertemuanPhotoController extends Controller
 {
     //
-
     public function tag_pertemuan_photo(Request $request) {
-        $id_user = $request->id_user;
+        $kode_user = $request->id_user;
         $id_pertemuan_photo = $request->id_pertemuan_photo;
 
         $finder = PertemuanPhoto::find($id_pertemuan_photo);
-        $finder->id_user = $id_user;
-        $finder->save();
+	if (is_null($finder->id_user)) {
+	    $user = User::where("kode_user", $kode_user)->first();
+	    if(is_null($user)) {
+		return response()->json(["message" => "user id not found or invalid"]);
+	    }
+	    $id_user = $user->id;
+	    $finder->id_user = $id_user;
+       	    $result = $finder->save();
 
-        return response()->json([
-            "data"=> $finder
-        ]);
+            return response()->json([
+                "data"=> $finder
+            ]);
+	}
+	return response()->json([
+		"message"=> "photo already tagged"
+	]);
     }
 
     public function get_pertemuan_photo_by_id(Request $request) {
@@ -34,16 +44,22 @@ class PertemuanPhotoController extends Controller
 
 
         $finder = PertemuanPhoto::with('photo','user')->where('id_pertemuan', $id)->get();
-        $result = [];
+        if (is_null($finder)) {
+	  return response()->json(["message"=>"id_pertemuan not found or invalid"]);
+	}
+
+	$result = [];
 
         foreach($finder as $f) {
-            $temp->id = $f->id_pertemuan_photo;
-            $temp->idStudent = $f->user->kode_user;
-            $temp->name = $f->user->name;
-            $temp->path = $f->photo->path;
-
+	    $temp = new PertemuanPhoto;
+            $temp->id_pertemuan_photo = $f->id_pertemuan_photo;
+	    if (! is_null($f->user)) {
+            	$temp->idStudent = $f->user->kode_user;
+            	$temp->name = $f->user->name;
+	    }
+ 	    $temp->path = $f->photo->path;
             $result[] = $temp;
-        }
+       }
 
         return response()->json([
         "data"=> $result ]);
