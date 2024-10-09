@@ -15,6 +15,11 @@ class UserImports implements ToModel, WithHeadingRow
     */
     public function model(array $row)
     {
+        $userfinder = User::where('kode_user', $row['kode_user'])->orWhere('email', $row['email'])->first();
+        if ($userfinder) {
+            return;
+        }
+
         return new User([
             // 'kode_user'=>$row[0],
             // 'name'=>$row[1],

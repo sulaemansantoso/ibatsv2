@@ -27,15 +27,17 @@ class SimbaImport implements ToModel, WithHeadingRow, WithStartRow
     */
     public function model(array $row)
     {
-
-
-
         //get course info
         $course = $row["course"];
         $cSplit = explode(" - ", $course);
         $kode_mk = $cSplit[0];
         $nama_mk = $cSplit[1];
+        //get schedule info
 
+        $schedule_detail = $row["schedule_detail"];
+        $cSplit = explode(" ", $schedule_detail);
+        $jam_mulai = $cSplit[1];
+        $jam_selesai = $cSplit[3];
 
         //get lecturer info
         $lecturer = $row["lecturer"];
@@ -90,13 +92,12 @@ class SimbaImport implements ToModel, WithHeadingRow, WithStartRow
         //if class doesn't exist, create
         $classfinder = Kelas::where('id_mk', $mkfinder->id_mk)->where('tipe_kelas', $class_type)->where('id_periode', 1)->where('nama_kelas', $class_no)->first();
         if ($classfinder == null) {
-            echo "create class $class_no and mk $mkfinder->id_mk \n";
 
             $class = new Kelas();
             $class->id_mk = $mkfinder->id_mk;
             $class->id_periode = 1;
-            $class->jam_mulai = "07:00:00";
-            $class->jam_selesai = "09:00:00";
+            $class->jam_mulai = $jam_mulai;
+            $class->jam_selesai = $jam_selesai;
             // $class->id_user = $userfinder->id;
             $class->nama_kelas = $class_no;
             $class->tipe_kelas = $class_type;
