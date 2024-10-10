@@ -20,8 +20,11 @@ class UserKelasImport implements ToModel, WithHeadingRow
     */
     public function model(array $row)
     {
-        $user = User::where('kode_user', $row['nrp'])->first();
+        if (!array_key_exists('nrp', $row)) {
+            return;
+        }
 
+        $user = User::where('kode_user', $row['nrp'])->first();
         if (!is_null($user)){
             $id_user = $user->id;
         }
@@ -36,7 +39,12 @@ class UserKelasImport implements ToModel, WithHeadingRow
             $user->save();
             $id_user = $user->id;
         }
-        $id_mk = MK::where('kode_mk', $row['kode_mk'])->first()->id_mk;
+        $mk = MK::where('kode_mk', $row['kode_mk'])->first();
+        if (is_null($mk)) {
+            return;
+        }
+        $id_mk = $mk->id_mk;
+
         if (is_null($id_mk)) {
             return;
         }
@@ -50,7 +58,6 @@ class UserKelasImport implements ToModel, WithHeadingRow
         if ($user_kelas_finder) {
             return;
         }
-
         return new UserKelas([
             //
             'id_user' => $id_user,
