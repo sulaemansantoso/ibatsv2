@@ -49,6 +49,23 @@ class UserKelasImport implements ToModel, WithHeadingRow
             return;
         }
 
+        $id_kelas_collection = Kelas::where('id_mk', $id_mk)->get();
+        if((!is_null($id_kelas_collection)) && ($id_kelas_collection->count() > 0)) {
+            for ($index = 1; $index < $id_kelas_collection->count(); $index++) {
+                $id_kelas = $id_kelas_collection[$index]->id_kelas;
+                $user_kelas_finder = UserKelas::where('id_user', $id_user)->where('id_kelas', $id_kelas)->first();
+                if ($user_kelas_finder) {
+                    return;
+                }
+                $otherUserKelas = new UserKelas([
+                    //
+                    'id_user' => $id_user,
+                    'id_kelas' => $id_kelas,
+                ]);
+                $otherUserKelas->save();
+            }
+        }
+
         $id_kelas = Kelas::where('id_mk', $id_mk)->where('nama_kelas', $row['kelas'])->first()->id_kelas;
         if (is_null($id_kelas)) {
             return;
