@@ -13,11 +13,11 @@ class PertemuanController extends Controller
     $id_kelas = $request->id_kelas;
 
     $result= Pertemuan::select('id_kelas','id_pertemuan','tgl_pertemuan','jam_mulai', 'tgl_pertemuan')->where('id_kelas', $id_kelas)->get();
-    
+
     foreach ($result as $p) {
 
     $p->tgl_pertemuan = date('d M Y', strtotime($p->tgl_pertemuan));
-    $p->jam_mulai = date('H:i', strtotime($p->jam_mulai));    
+    $p->jam_mulai = date('H:i', strtotime($p->jam_mulai));
     $p->tgl_jam = $p->tgl_pertemuan.' - '.$p->jam_mulai;
 
     }
@@ -41,7 +41,7 @@ class PertemuanController extends Controller
   public function get_pertemuan()
   {
     $pertemuan = Pertemuan::All();
-  
+
     foreach ($pertemuan as $p) {
         $p->kelas = $p->kelas;
 	$p->tgl_pertemuan = date('d M Y', strtotime($p->tgl_pertemuan));
@@ -56,12 +56,22 @@ class PertemuanController extends Controller
   public function insert(Request $request)
   {
     try {
-      $pertemuan = new Pertemuan();
-      $pertemuan->id_kelas = $request->id_kelas;
-      $pertemuan->tgl_pertemuan = $request->tgl_pertemuan;
-      $pertemuan->jam_mulai = $request->jam_mulai;
-      $pertemuan->jam_selesai = $request->jam_mulai;
-      $pertemuan->save();
+
+      $pertemuan_finder = Pertemuan::where("tgl_pertemuan", $request->tgl_pertemuan)->where("id_kelas", $request->id_kelas);
+      if (is_null($pertemuan_finder->first())) {
+        $pertemuan = new Pertemuan();
+        $pertemuan->id_kelas = $request->id_kelas;
+        $pertemuan->tgl_pertemuan = $request->tgl_pertemuan;
+        $pertemuan->jam_mulai = $request->jam_mulai;
+        $pertemuan->jam_selesai = $request->jam_mulai;
+        $pertemuan->save();
+      }
+      else {
+        return response()->json([
+            'data' => [],
+            'message' => "Data sudah ada",
+        ], 200);
+      }
     }
     catch (\Exception $e) {
       return response()->json($e->getMessage());
