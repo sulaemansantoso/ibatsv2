@@ -13,15 +13,17 @@ php_flag opcache.enable Off
 
 
 <IfModule mod_rewrite.c>
+
+
 <IfModule mod_negotiation.c>
     Options -MultiViews
 </IfModule>
 
 RewriteEngine On
 
+
 RewriteCond %{HTTP:Authorization} .
 RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
-
 
 RewriteCond %{REQUEST_URI} ^/storage/.*\.(jpg|jpeg|png|gif)$ [NC]
 RewriteRule ^ - [L]
