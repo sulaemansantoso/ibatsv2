@@ -19,9 +19,15 @@ class PertemuanPhotoController extends Controller
     public function untag_pertemuan_photo(Request $request) {
         $id_pertemuan_photo = $request->id_pertemuan_photo;
         $finder = PertemuanPhoto::find($id_pertemuan_photo);
+
+        if (is_null($finder->id_user)) {
+            return response()->json(["message" => "photo not tagged"]);
+        }
         $finder->id_user = null;
         $result = $finder->save();
-        return response()->json($result);
+        return response()->json([
+            "data"=> "photo untagged"
+        ]);
     }
     //
     public function tag_pertemuan_photo(Request $request) {
