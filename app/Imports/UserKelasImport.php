@@ -24,6 +24,7 @@ class UserKelasImport implements ToModel, WithHeadingRow
             return;
         }
 
+
         $user = User::where('kode_user', $row['nrp'])->first();
         if (!is_null($user)){
             $id_user = $user->id;

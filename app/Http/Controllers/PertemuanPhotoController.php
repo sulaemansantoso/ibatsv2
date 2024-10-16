@@ -15,24 +15,36 @@ use Intervention\Image\Drivers\Gd\Driver;
 
 class PertemuanPhotoController extends Controller
 {
+
+    public function untag_pertemuan_photo(Request $request) {
+        $id_pertemuan_photo = $request->id_pertemuan_photo;
+        $finder = PertemuanPhoto::find($id_pertemuan_photo);
+        $finder->id_user = null;
+        $result = $finder->save();
+        return response()->json($result);
+    }
     //
     public function tag_pertemuan_photo(Request $request) {
         $kode_user = $request->id_user;
         $id_pertemuan_photo = $request->id_pertemuan_photo;
 
         $finder = PertemuanPhoto::find($id_pertemuan_photo);
-	if (is_null($finder->id_user)) {
-	    $user = User::where("kode_user", $kode_user)->first();
-	    if(is_null($user)) {
-		return response()->json(["message" => "user id not found or invalid"]);
+
+        //cek if user exist then get user_id
+	    if (is_null($finder->id_user)) {
+	        $user = User::where("kode_user", $kode_user)->first();
+
+        //if user didnt exist
+        if(is_null($user)) {
+		    return response()->json(["message" => "user id not found or invalid"]);
 	    }
 	    $id_user = $user->id;
 	    $finder->id_user = $id_user;
-       	    $result = $finder->save();
+       	$result = $finder->save();
 
-            return response()->json([
-                "data"=> $finder
-            ]);
+        return response()->json([
+            "data"=> $finder
+        ]);
 	}
 	return response()->json([
 		"message"=> "photo already tagged"
